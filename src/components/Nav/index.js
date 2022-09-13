@@ -1,58 +1,51 @@
 import React from 'react';
+import { capitalizeFirstLetter } from '../../utils/helpers';
 
-// this will make it easier to expand the categories and reduces repetition
-const categories = [
-    {
-        name: 'commercial',
-        description: 'Photos of grocery stores, food truck, and other commercial projects'
-    },
-    {
-        name: 'portraits',
-        description: 'Portraits of people in my life'
-    },
-    {
-        name: 'food',
-        description: 'Delicious delicacies'
-    },
-    {
-        name: 'landscape',
-        description: 'Fields, farmhouses, waterfalls, and the beauty of nature'
-    }
-];
+function Nav(props) {
+    // destructure
+    const {categories = [], currentCat, setCurrentCat} = props;
 
-function categorySelected(name) {
-    console.log(name + ' clicked');
-};
+	return (
+		<header className="flex-row">
+			<h2>
+				<a data-testid="link" href="/">
+					<span role="img" aria-label="camera">
+                    📸
+					</span>
+					Oh Snap!
+				</a>
+			</h2>
 
-function Nav() {
-    return (
-        <header className="flex-row">
-            <h2>
-                <a data-testid="link" href="/"><span role="img" aria-label="camera">📸</span> Oh Snap!</a>
-            </h2>
+			<nav>
+				<ul className="flex-row">
+					<li>
+						<a data-testid="about" href="#about">
+							About me
+						</a>
+					</li>
 
-            <nav>
-                <ul className="flex-row">
-                    <li>
-                        <a data-testid="about" href="#about">About me</a>
-                    </li>
+					<li>
+						<span>Contact</span>
+					</li>
 
-                    <li>
-                        <span>Contact</span>
-                    </li>
-
-                    {/* implicit return */}
-                    {categories.map(category => (
-                        <li className="mx-1" key={category.name}>
-                            <span onClick={() => categorySelected(category.name)}>
-                                {category.name}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        </header>
-    )
-};
+					{/* implicit return */}
+					{categories.map(category => (
+						<li
+                            className={`mx-1 ${currentCat.name === category.name && 'navActive'}`}
+                            key={category.name}
+                        >
+                            {/* short circuit statement - if that comparison is true, run the second half of the statement */}
+							<span
+								onClick={() => setCurrentCat(category)}
+							>
+								{capitalizeFirstLetter(category.name)}
+							</span>
+						</li>
+					))}
+				</ul>
+			</nav>
+		</header>
+	);
+}
 
 export default Nav;
