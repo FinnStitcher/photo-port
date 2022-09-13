@@ -31,11 +31,17 @@ function App() {
     const [currentCat, setCurrentCat] = useState(categories[0]);
     // because this state needs to be used by both nav and gallery, and they are siblings, we have it lifted up here
 
+    // data flow here:
+    // currentCat is defined up here, so it's available to the entire app
+    // something about function closures, i'm thinking
+    // nav uses setCurrentCat to set what category we should be viewing
+    // when currentCat updates, Nav and Gallery re-render because they both use that variable
+    // Gallery also passes the name attached to the category into PhotoList, which uses it to display the correct photos
 	return (
     <div>
         <Nav categories={categories} currentCat={currentCat} setCurrentCat={setCurrentCat}></Nav>
         <main>
-            <Gallery></Gallery>
+            <Gallery currentCat={currentCat}></Gallery>
             <About></About>
         </main>
     </div>
