@@ -100,6 +100,18 @@ header a {
   color: var(--light);
 }
 
+header h2 {
+    width: 20%;
+}
+
+nav {
+    width: 80%
+}
+
+nav ul {
+    width: 100%;
+}
+
 button {
   font-size: 1rem;
   text-decoration: none;
@@ -155,8 +167,12 @@ nav a:hover {
   text-decoration: none;
 }
 
-nav  li {
+nav li {
   cursor: pointer;
+  margin-right: var(--spacing-two);
+  margin-left: var(--spacing-two);
+  text-transform: capitalize;
+  flex: 0 120px;
 }
 
 textarea {
