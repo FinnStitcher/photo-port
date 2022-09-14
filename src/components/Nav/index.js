@@ -3,7 +3,7 @@ import { capitalizeFirstLetter } from '../../utils/helpers';
 
 function Nav(props) {
     // destructure
-    const {categories = [], currentCat, setCurrentCat} = props;
+    const {categories = [], currentCat, setCurrentCat, contactSelected, setContactSelected} = props;
 
     useEffect(() => {
         document.title = capitalizeFirstLetter(currentCat.name);
@@ -22,25 +22,28 @@ function Nav(props) {
 
 			<nav>
 				<ul className="flex-row">
-					<li>
-						<a data-testid="about" href="#about">
+					<li className="mx-2">
+						<a data-testid="about" href="#about" onClick={() => setContactSelected(false)}>
 							About me
 						</a>
 					</li>
 
-					<li>
-						<span>Contact</span>
+					<li className={`mx-2 ${contactSelected && 'navActive'}`}>
+						<span onClick={() => setContactSelected(true)}>Contact</span>
 					</li>
 
 					{/* implicit return */}
 					{categories.map(category => (
 						<li
-                            className={`mx-1 ${currentCat.name === category.name && 'navActive'}`}
+                            className={`mx-1 ${currentCat.name === category.name && !contactSelected && 'navActive'}`}
                             key={category.name}
                         >
                             {/* short circuit statement - if that comparison is true, run the second half of the statement */}
 							<span
-								onClick={() => setCurrentCat(category)}
+								onClick={() => {
+                                    setCurrentCat(category);
+                                    setContactSelected(false);
+                                }}
 							>
 								{capitalizeFirstLetter(category.name)}
 							</span>
