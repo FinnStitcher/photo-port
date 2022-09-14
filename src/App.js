@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import About from './components/About';
 import Nav from './components/Nav';
 import Gallery from './components/Gallery';
+import ContactForm from './components/Contact';
 
 // this is the root of the whole app
 
@@ -41,6 +42,7 @@ function App() {
     <div>
         <Nav categories={categories} currentCat={currentCat} setCurrentCat={setCurrentCat}></Nav>
         <main>
+            <ContactForm></ContactForm>
             <Gallery currentCat={currentCat}></Gallery>
             <About></About>
         </main>
