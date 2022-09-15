@@ -126,12 +126,17 @@ function PhotoList({ category }) {
 
     function toggleModal(image, i) {
         setCurrentPhoto({...image, index: i});
-        setIsModalOpen(true);
+        setIsModalOpen(!isModalOpen);
     };
+    // you can't click on the images when the modal is open, and vice versa, so it can only be set to true when the modal is closed and vice versa
+    // i guess onClose is like... a prepackaged function or method...? idk. it works. i didnt have to define anything in Modal except adding an onClick value
 
 	return (
 		<div>
-            {isModalOpen && <Modal currentPhoto={currentPhoto} />}
+            {isModalOpen && <Modal
+                currentPhoto={currentPhoto}
+                onClose={toggleModal}
+            />}
 
 			<div className="flex-row">
 				{currentPhotos.map((image, i) => (
